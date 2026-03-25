@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zia's Kitchen - Fresh Daily Food Recommendations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-utensils"></i>
+                <span>Zia's Kitchen</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#recommendations" class="nav-link">Daily Picks</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#menu" class="nav-link">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Welcome to ZIAH'S KITCHEN</h1>
+                    <p class="hero-subtitle">Support My Ka Small Business</p>
+                    <p class="hero-description">
+                        <span class="hero-tagline"> We make delicious meals with love</span>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <i class="fas fa-utensils"></i>
+                                <span>All Day Dining: Breakfast, Lunch & Dinner</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-birthday-cake"></i>
+                                <span>Event Catering: Birthdays, Anniversaries & Special Events</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>Daily Meals from K10,000 • Custom Platters from K40,000</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Flexible Budget Options Available</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Area 25, Lilongwe • Mon - Sat Open</span>
+                            </div>
+                        </div>
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#recommendations" class="btn btn-primary">View Today's Picks</a>
+                        <a href="#menu" class="btn btn-secondary">Explore Menu</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="chef-profile">
+                        <div class="chef-image">
+                            <img src="assets/Profile.png" alt="Ziah's Kitchen Profile">
+                        </div>
+                        <div class="chef-info">
+                            <h3>Ziah's Kitchen</h3>
+                            <p>Delicious Meals & Catering Services</p>
+                            <div class="chef-contact-info">
+                                <div class="chef-experience">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Area 25, Lilongwe</span>
+                                </div>
+                                <div class="chef-experience">
+                                    <i class="fas fa-phone"></i>
+                                    <span>0991418099</span>
+                                </div>
+                                <div class="chef-experience">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Mon - Sat: Open</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Recommendations Section -->
+    <section id="recommendations" class="recommendations">
+        <div class="container">
+            <div class="section-header">
+                <h2>Today's Special Meals</h2>
+                <p>Freshly prepared home made meals with love</p>
+                <div class="date-display" id="currentDate"></div>
+            </div>
+            <div class="recommendations-grid" id="recommendationsGrid">
+                <!-- Recommendations will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Menu</h2>
+                <p>Explore our delicious home made meals</p>
+            </div>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">All Items</button>
+                <button class="category-btn" data-category="appetizers">Appetizers</button>
+                <button class="category-btn" data-category="mains">Main Courses</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+                <button class="category-btn" data-category="beverages">Beverages</button>
+            </div>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                <h2>About ZIAH'S KITCHEN</h2>
+                    <p>Support my ka small business! We make delicious meals from breakfast, lunch, dinner and food platters. We also cater for special events like birthday's, Anniversary parties and other events.</p>
+                    <p>Our daily meals start from K10,000 going up and we also work out with customers budget. We also make customized food platters according to our customers taste starting from K40,000 going up. Open from Monday to Saturday, located in Area 25, Lilongwe.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-utensils"></i>
+                            <h3>All Day Dining</h3>
+                            <p>Breakfast, Lunch, Dinner & Platters</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-birthday-cake"></i>
+                            <h3>Event Catering</h3>
+                            <p>Birthday's, Anniversaries & Special Events</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h3>Made with Love</h3>
+                            <p>Home cooked meals with care</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>15+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h3>1000+</h3>
+                        <p>Happy Customers</p>
+                    </div>
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Menu Items</p>
+                    </div>
+                    <div class="stat">
+                        <h3>365</h3>
+                        <p>Days Fresh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Visit Us Today</h2>
+                <p>Find us in Area 25, Lilongwe</p>
+                <div class="quick-contact-buttons">
+                    <a href="https://wa.me/265991418099" target="_blank" class="quick-contact-btn whatsapp-btn-small">
+                        <i class="fab fa-whatsapp"></i>
+                        Message on WhatsApp
+                    </a>
+                    <a href="tel:0991418099" class="quick-contact-btn call-btn-small">
+                        <i class="fas fa-phone"></i>
+                        Call Now
+                    </a>
+                </div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Area 25, Lilongwe</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Hours</h3>
+                            <p>Monday - Saturday: Open</p>
+                            <p>Sunday: Closed</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>0991418099</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-utensils"></i>
+                        <div>
+                            <h3>Services</h3>
+                            <p>Daily Meals & Event Catering</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="reservationForm">
+                        <h3>Make a Reservation</h3>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Your Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" placeholder="Number of Guests" min="1" max="20" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Special Requests (Optional)" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Reserve Table</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <span>ZIAH'S KITCHEN</span>
+                    </div>
+                    <p>Fresh food, warm hospitality, memorable experiences.</p>
+                    <div class="social-links">
+                        <a href="https://web.facebook.com/profile.php?id=100077796128253" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#recommendations">Daily Picks</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Appetizers</a></li>
+                        <li><a href="#">Main Courses</a></li>
+                        <li><a href="#">Desserts</a></li>
+                        <li><a href="#">Beverages</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get daily recommendations and special offers!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Zia's Kitchen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+    <!-- Floating Order Button -->
+    <div class="floating-order-btn" id="floatingOrderBtn">
+        <i class="fas fa-shopping-cart">
+            <span class="cart-badge empty" id="cartBadge">0</span>
+        </i>
+        <span>Order Now</span>
+        <div class="floating-buttons-group">
+            <a href="https://wa.me/+265991418099" target="_blank" class="floating-whatsapp-btn" onclick="event.stopPropagation()">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+            </a>
+            <a href="tel:0991418099" class="floating-call-btn" onclick="event.stopPropagation()">
+                <i class="fas fa-phone"></i>
+                Call
+            </a>
+        </div>
+    </div>
+    
+    <!-- Floating Cart Button -->
+    <div class="floating-cart-btn" id="floatingCartBtn" style="display: none;">
+        <i class="fas fa-shopping-basket"></i>
+        <span class="cart-count" id="floatingCartCount">0</span>
+        <span class="cart-text">See Your Order</span>
+    </div>
+    
+    <!-- WhatsApp Order Modal -->
+    <div class="whatsapp-modal" id="whatsappModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fab fa-whatsapp"></i> Quick Order</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ready to order? Click below to message us on WhatsApp!</p>
+                <div class="whatsapp-info">
+                    <div class="contact-number">
+                        <i class="fas fa-phone"></i>
+                        <span>0991418099</span>
+                    </div>
+                    <p>We'll respond quickly to take your order!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reservation Modal -->
+    <div class="reservation-modal" id="reservationModal">
+        <div class="reservation-modal-overlay" id="reservationModalOverlay"></div>
+        <div class="reservation-modal-content">
+            <div class="reservation-modal-header">
+                <h3><i class="fas fa-calendar-alt"></i> Make a Reservation</h3>
+                <button class="reservation-modal-close" id="reservationModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="reservation-modal-body">
+                <p>Reserve your table at Zia's Kitchen and enjoy our delicious home-made meals!</p>
+                <form id="modalReservationForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Your Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Number of Guests" min="1" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Special Requests (Optional)" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Reserve Table</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Category Detail Page -->
+    <div class="category-detail-page" id="categoryDetailPage">
+        <div class="category-detail-container">
+            <!-- Back Button -->
+            <button class="back-button" id="backButton">
+                <i class="fas fa-arrow-left"></i>
+                Back to Menu
+            </button>
+            
+            <!-- Category Header -->
+            <div class="category-header">
+                <div class="category-hero-image" id="categoryHeroImage">
+                    <!-- Dynamic image will be loaded here -->
+                </div>
+                <div class="category-hero-content">
+                    <h1 id="categoryTitle">Category Name</h1>
+                    <p id="categoryDescription">Category description with delicious food details</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-utensils"></i>
+                            <span id="categoryItemCount">0 Items</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="categoryPrepTime">15-30 min</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-fire"></i>
+                            <span id="categorySpiceLevel">Mild</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category Items Grid -->
+            <div class="category-items-section">
+                <div class="section-header">
+                    <h2>All <span id="categoryNameInTitle">Category</span> Items</h2>
+                    <p>Freshly prepared with love and care</p>
+                </div>
+                <div class="category-items-grid" id="categoryItemsGrid">
+                    <!-- Category items will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Food Item Detail Page -->
+    <div class="food-item-detail-page" id="foodItemDetailPage">
+        <div class="food-item-detail-container">
+            <!-- Back Button -->
+            <button class="back-button" id="foodItemBackButton">
+                <i class="fas fa-arrow-left"></i>
+                Back
+            </button>
+            
+            <!-- Food Item Header -->
+            <div class="food-item-header">
+                <div class="food-item-image-container">
+                    <div class="food-item-image" id="foodItemImage">
+                        <!-- Dynamic food image will be loaded here -->
+                    </div>
+                    <div class="food-item-badges">
+                        <span class="badge" id="foodItemBadge">Special</span>
+                    </div>
+                </div>
+                <div class="food-item-info">
+                    <h1 id="foodItemName">Food Item Name</h1>
+                    <p id="foodItemDescription">Detailed description of this delicious food item prepared with love and care.</p>
+                    <div class="food-item-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="foodItemPrepTime">20-30 min</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-fire"></i>
+                            <span id="foodItemSpiceLevel">Medium</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-star"></i>
+                            <span>Customer Favorite</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Food Item Details -->
+            <div class="food-item-details">
+                <div class="detail-section">
+                    <h3>Ingredients</h3>
+                    <p id="foodItemIngredients">Fresh, locally sourced ingredients prepared with authentic Malawian spices and cooking techniques.</p>
+                </div>
+                <div class="detail-section">
+                    <h3>Nutritional Information</h3>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Calories</span>
+                            <span class="nutrition-value" id="foodItemCalories">350-450</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Protein</span>
+                            <span class="nutrition-value" id="foodItemProtein">25g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="nutrition-label">Carbs</span>
+                            <span class="nutrition-value" id="foodItemCarbs">40g</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3>Allergen Information</h3>
+                    <p id="foodItemAllergens">May contain nuts, dairy, and gluten. Please inform us of any allergies.</p>
+                </div>
+            </div>
+            
+            <!-- Price and Action -->
+            <div class="food-item-action">
+                <div class="price-section">
+                    <span class="price-label">Price:</span>
+                    <span class="price-value" id="foodItemPrice">K15,000</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="quantity-btn" id="decreaseQty">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <span class="quantity-display" id="quantityDisplay">1</span>
+                    <button class="quantity-btn" id="increaseQty">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="add-to-cart-btn" id="addToCartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cart Popup -->
+    <div class="cart-popup" id="cartPopup">
+        <div class="cart-popup-overlay" id="cartPopupOverlay"></div>
+        <div class="cart-popup-content">
+            <div class="cart-popup-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                <button class="cart-popup-close" id="cartPopupClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-popup-body">
+                <div class="cart-items-list" id="cartItemsList">
+                    <!-- Cart items will be dynamically loaded here -->
+                </div>
+                <div class="cart-popup-empty" id="cartEmptyMessage" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <p>Add some delicious items to get started!</p>
+                </div>
+                
+                <!-- Customer Details Form -->
+                <div class="customer-details-form" id="customerDetailsForm">
+                    <h4>Delivery Details</h4>
+                    <div class="form-group">
+                        <label for="customerName">Full Name *</label>
+                        <input type="text" id="customerName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="deliveryTime">Delivery Time *</label>
+                            <input type="time" id="deliveryTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryDate">Delivery Date *</label>
+                            <input type="date" id="deliveryDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryLocation">Delivery Location *</label>
+                        <input type="text" id="deliveryLocation" placeholder="Enter your delivery address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialInstructions">Special Instructions (Optional)</label>
+                        <textarea id="specialInstructions" placeholder="Any special requests or dietary requirements" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-popup-footer">
+                <div class="cart-total">
+                    <span class="total-label">Total:</span>
+                    <span class="total-amount" id="cartTotalAmount">K0</span>
+                </div>
+                <button class="cart-whatsapp-btn" id="cartWhatsAppBtn">
+                    <i class="fab fa-whatsapp"></i>
+                    Order via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
