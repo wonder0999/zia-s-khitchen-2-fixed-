@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ziah's Kitchen</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff6b35">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Zia's Kitchen">
+    <link rel="apple-touch-icon" href="Profile.png">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Welcome Page -->
+    <div id="welcomePage" class="page active">
+        <div class="header">
+            <div class="header-left">
+                <div class="logo-text">Zia's Kitchen</div>
+            </div>
+            <button class="menu-btn" onclick="openSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="welcome-content">
+            <div class="welcome-text-section">
+                <div class="profile-section">
+                    <img src="Profile.png" alt="Chef Ziah" class="profile-pic-compact">
+                    <div class="business-info">
+                        <div class="business-name">Ziah's Kitchen</div>
+                        <div class="business-tagline">Delicious Meals & Catering Services</div>
+                    </div>
+                </div>
+                
+                <!-- Animated Welcome Messages -->
+                <div class="animated-welcome">
+                    <div class="welcome-title-animated" id="animatedTitle">Welcome to ZIAH'S KITCHEN</div>
+                    <div class="welcome-emoji-container">
+                        <span class="food-emoji emoji-1">🍽️</span>
+                        <span class="food-emoji emoji-2">🍛️</span>
+                        <span class="food-emoji emoji-3">🍲</span>
+                        <span class="food-emoji emoji-4">⭐</span>
+                        <span class="food-emoji emoji-5">👨‍🍳</span>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="cooking-btn pulse-animation" onclick="showPage('menuPage')">
+                        <i class="fas fa-utensils"></i>
+                        See What's Cooking
+                    </button>
+                    <button class="explore-btn" onclick="showPage('menuPage')">
+                        <i class="fas fa-compass"></i>
+                        Explore Full Menu
+                    </button>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt info-icon"></i>
+                        <span>Area 25, Lilongwe</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone info-icon"></i>
+                        <span>0991418099</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock info-icon"></i>
+                        <span>Mon - Sat: Open</span>
+                    </div>
+                </div>
+                
+                <p class="footer-text">Home-made meals with love</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Page -->
+    <div id="menuPage" class="page">
+        <div class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="showPage('welcomePage')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <div class="logo-text">Ziah's Kitchen</div>
+            </div>
+            <button class="menu-btn" onclick="openSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="menu-content">
+            <div class="menu-items">
+                <div class="welcome-section">
+                    <div class="welcome-header">
+                        <h2 class="welcome-text">Welcome to Ziah's Kitchen</h2>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Zia Assistant -->
+                <div class="zia-assistant-enhanced" id="ziaAssistantEnhanced">
+                    <div class="assistant-container">
+                        <div class="assistant-avatar-enhanced" id="assistantAvatarEnhanced">
+                            <div class="assistant-face-enhanced">
+                                <div class="assistant-eyes-enhanced">
+                                    <div class="eye-enhanced left-eye-enhanced" id="leftEyeEnhanced"></div>
+                                    <div class="eye-enhanced right-eye-enhanced" id="rightEyeEnhanced"></div>
+                                </div>
+                                <div class="assistant-mouth-enhanced" id="assistantMouthEnhanced"></div>
+                                <div class="assistant-emotions" id="assistantEmotions">
+                                    <div class="emotion-indicator" id="emotionIndicator"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="assistant-bubble-enhanced" id="assistantBubbleEnhanced">
+                            <div class="bubble-content">
+                                <span id="assistantMessageEnhanced">Hey! I'm Zia! I'll help you find the perfect meal 🍗🍚</span>
+                                <div class="assistant-actions">
+                                    <button class="assistant-btn dismiss-btn" id="dismissAssistantBtn" onclick="dismissAssistant()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="assistant-btn toggle-btn" id="toggleAssistantBtn" onclick="toggleAssistant()">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="assistant-recommendations" id="assistantRecommendations">
+                            <div class="recommendations-header">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Zia's Smart Suggestions</span>
+                            </div>
+                            <div class="recommendations-list" id="recommendationsList">
+                                <!-- Recommendations will be dynamically populated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Search Section -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="foodSearch" placeholder="Search for delicious food..." autocomplete="off">
+                            <button class="search-btn" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                            <div class="suggestions-header">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Zia's Recommendations</span>
+                            </div>
+                            <div class="suggestions-list" id="suggestionsList">
+                                <!-- Suggestions will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-grid" id="foodGrid">
+                    <!-- Food items will be dynamically loaded here -->
+                </div>
+                
+                <!-- Customer Reviews Section -->
+                <div class="reviews-section" id="reviewsSection">
+                    <div class="reviews-header">
+                        <h3>Customer Reviews</h3>
+                        <div class="overall-rating">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-number">4.5</span>
+                            <span class="total-reviews">(127 reviews)</span>
+                        </div>
+                    </div>
+                    <div class="reviews-container" id="reviewsContainer">
+                        <!-- Reviews will be dynamically loaded here -->
+                    </div>
+                    <button class="load-more-reviews" onclick="loadMoreReviews()">Load More Reviews</button>
+                </div>
+                
+                <!-- Food Safety Certifications -->
+                <div class="safety-badges">
+                    <h4>Food Safety & Quality</h4>
+                    <div class="badges-container">
+                        <div class="safety-badge">
+                            <i class="fas fa-certificate"></i>
+                            <span>Food Safety Certified</span>
+                        </div>
+                        <div class="safety-badge">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <span>Halal Certified</span>
+                        </div>
+                        <div class="safety-badge">
+                            <i class="fas fa-leaf"></i>
+                            <span>Fresh Ingredients</span>
+                        </div>
+                        <div class="safety-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Quality Assured</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Order Button -->
+        <div id="floatingOrderBtn" class="floating-order-btn" style="display: none;" onclick="showPage('orderPage')">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </div>
+        
+        <!-- Floating Explore Categories Button -->
+        <div id="floatingExploreBtn" class="floating-explore-btn" onclick="openCategoriesModal()">
+            <i class="fas fa-compass"></i>
+            <span>Explore the category</span>
+        </div>
+    </div>
+
+    <!-- Order Page -->
+    <div id="orderPage" class="page">
+        <div class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="showPage('menuPage')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <div class="logo-text">Your Order</div>
+            </div>
+            <button class="menu-btn" onclick="openSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="menu-items">
+            <div class="welcome-section">
+                <h2 class="welcome-text">Your Cart</h2>
+                
+                <!-- Order Summary Card -->
+                <div class="order-summary-card">
+                    <div class="summary-header">
+                        <i class="fas fa-receipt"></i>
+                        <span>Order Summary</span>
+                    </div>
+                    <div class="summary-content">
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal</span>
+                            <span class="summary-value" id="subtotal">MWK 0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Delivery Fee</span>
+                            <span class="summary-value" id="deliveryFee">MWK 500</span>
+                        </div>
+                        <div class="summary-row discount-row" id="discountRow" style="display: none;">
+                            <span class="summary-label">Discount</span>
+                            <span class="summary-value discount" id="discountAmount">-MWK 0</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total-row">
+                            <span class="summary-label total-label">Total</span>
+                            <span class="summary-value total-value" id="totalAmount">MWK 500</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Items Container -->
+                <div id="cartItems" class="cart-items-container">
+                    <!-- Cart items will be dynamically populated here -->
+                    <div class="empty-cart-message" id="emptyCartMessage">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty</p>
+                        <button class="browse-menu-btn" onclick="showPage('menuPage')">
+                            <i class="fas fa-utensils"></i>
+                            Browse Menu
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Promo Code Section -->
+                <div class="promo-section">
+                    <div class="promo-input-group">
+                        <input type="text" id="promoCode" class="promo-input" placeholder="Enter promo code">
+                        <button class="apply-promo-btn" onclick="applyPromoCode()">
+                            <i class="fas fa-tag"></i>
+                            Apply
+                        </button>
+                    </div>
+                    <div class="promo-message" id="promoMessage"></div>
+                </div>
+                
+                <!-- Delivery Information -->
+                <div class="delivery-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Delivery Information
+                    </h3>
+                    <div class="delivery-form">
+                        <div class="form-group">
+                            <label class="form-label">Delivery Address</label>
+                            <input type="text" id="deliveryAddress" class="form-input" placeholder="Enter your delivery address">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" id="deliveryPhone" class="form-input" placeholder="099xxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Special Instructions</label>
+                            <textarea id="specialInstructions" class="form-textarea" placeholder="Any special requests?"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="order-actions">
+                    <button class="btn-whatsapp enhanced" onclick="sendOrderWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Send via WhatsApp</span>
+                        <i class="fas fa-check-circle check-icon"></i>
+                    </button>
+                    <button class="btn-call enhanced" onclick="callUs()">
+                        <i class="fas fa-phone"></i>
+                        <span>Call us</span>
+                    </button>
+                    <button class="btn-clear-cart" onclick="clearCart()">
+                        <i class="fas fa-trash"></i>
+                        <span>Clear Cart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Custom Food Platters -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Customized Food Platters</h3>
+                <button class="close-btn" onclick="closeModal('customModal')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="customForm">
+                <div class="form-group">
+                    <label class="form-label">NAME</label>
+                    <input type="text" class="form-input" id="customName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">LOCATION</label>
+                    <input type="text" class="form-input" id="customLocation" required>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-whatsapp" onclick="sendCustomWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                        Message us through WhatsApp
+                    </button>
+                    <button type="button" class="btn-call" onclick="callUs()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        Call us
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Reservation -->
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Make a Reservation</h3>
+                <button class="close-btn" onclick="closeModal('reservationModal')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label class="form-label">NAME</label>
+                    <input type="text" class="form-input" id="resName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">LOCATION</label>
+                    <input type="text" class="form-input" id="resLocation" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">DATE</label>
+                    <input type="date" class="form-input" id="resDate" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">TIME</label>
+                    <input type="time" class="form-input" id="resTime" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">DESCRIPTION (optional)</label>
+                    <textarea class="form-textarea" id="resDescription"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-whatsapp" onclick="sendReservationWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                    <button type="button" class="btn-call" onclick="callUs()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        Call us
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Food Details -->
+    <div id="foodDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="foodDetailsTitle">Food Details</h3>
+                <button class="close-btn" onclick="closeModal('foodDetailsModal')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <img id="foodDetailsImg" class="food-details-img" src="" alt="">
+            <h2 id="foodDetailsName" class="food-details-name"></h2>
+            <div id="foodDetailsPrice" class="food-details-price"></div>
+            <p id="foodDetailsDescription" class="food-details-description"></p>
+            <div class="modal-actions">
+                <button class="add-to-cart-btn" onclick="addToCartFromDetails()">Add to Cart</button>
+                <button class="btn-whatsapp" onclick="callUs()">
+                    <i class="fas fa-phone"></i>
+                    Call us
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-header">
+            <div class="side-menu-title">Ziah's Kitchen</div>
+            <div class="side-menu-subtitle">Delicious Meals & Catering</div>
+        </div>
+        <div class="side-menu-content">
+            <div class="menu-info-section">
+                <div class="menu-info-title">About Us</div>
+                <div class="menu-info-text">
+                    We make delicious meals From breakfast, lunch, dinner and food platters. 
+                    We also carter for special events like birthday's, Anniversary parties and other events.
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Pricing</div>
+                <div class="menu-info-text">
+                    Our daily meals starts from 10k meals going up<br>
+                    we also work out with customers budget<br>
+                    We also make customized food platters according to our customers taste, Starting from 40k going up
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Hours</div>
+                <div class="menu-info-text">
+                    We are open from Monday to Saturday
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Location</div>
+                <div class="menu-info-text">
+                    Located in Area 25<br>
+                    Lilongwe
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Follow Us</div>
+                <div class="menu-info-text">
+                    <a href="https://www.facebook.com" target="_blank" style="color: #ff6b35; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fab fa-facebook" style="font-size: 20px;"></i>
+                        Find us on Facebook
+                    </a>
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Contact</div>
+                <div class="menu-info-text">
+                    0991418099
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Customer Support</div>
+                <div class="menu-info-text">
+                    <button class="whatsapp-video-btn" onclick="startWhatsAppVideoCall()">
+                        <i class="fab fa-whatsapp"></i>
+                        Video Call Support
+                    </button>
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Refer & Earn</div>
+                <div class="menu-info-text">
+                    <button class="referral-btn" onclick="showReferralProgram()">
+                        <i class="fas fa-gift"></i>
+                        Get 10% Off
+                    </button>
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Analytics</div>
+                <div class="menu-info-text">
+                    <button class="analytics-btn" onclick="showPage('analyticsPage')">
+                        <i class="fas fa-chart-bar"></i>
+                        View Dashboard
+                    </button>
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Push Notifications</div>
+                <div class="menu-info-text">
+                    <button class="notification-btn" onclick="togglePushNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span id="notificationStatus">Enable Alerts</span>
+                    </button>
+                </div>
+            </div>
+            <div class="menu-info-section">
+                <div class="menu-info-title">Voice Search</div>
+                <div class="menu-info-text">
+                    <button class="voice-search-btn" onclick="startVoiceSearch()">
+                        <i class="fas fa-microphone"></i>
+                        <span id="voiceStatus">Start Voice</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Modal -->
+    <div id="categoriesModal" class="modal">
+        <div class="modal-content categories-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Explore Our Menu</h3>
+                <button class="close-btn" onclick="closeCategoriesModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card" onclick="selectCategory('special')">
+                    <div class="category-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Today's Special</h4>
+                    <p>Chef's special meals of the day</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('all')">
+                    <div class="category-icon">
+                        <i class="fas fa-th"></i>
+                    </div>
+                    <h4>All Items</h4>
+                    <p>Complete menu selection</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('daily')">
+                    <div class="category-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <h4>Daily Meals</h4>
+                    <p>Fresh daily preparations</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('custom')">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h4>Custom Platters</h4>
+                    <p>Personalized food platters</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('other')">
+                    <div class="category-icon">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <h4>Other Plates</h4>
+                    <p>Special menu items</p>
+                </div>
+                <div class="category-card" onclick="showReservationModal()">
+                    <div class="category-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h4>Make Reservation</h4>
+                    <p>Book your table with us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Dashboard -->
+    <div id="analyticsPage" class="page">
+        <div class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="showPage('menuPage')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <div class="logo-text">Analytics Dashboard</div>
+            </div>
+            <button class="menu-btn" onclick="openSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="analytics-content">
+            <div class="analytics-overview">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">247</div>
+                        <div class="stat-label">Total Orders</div>
+                        <div class="stat-change positive">+12% this week</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">Chips & Chicken</div>
+                        <div class="stat-label">Most Popular</div>
+                        <div class="stat-change positive">89 orders</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">12:30 PM</div>
+                        <div class="stat-label">Peak Hour</div>
+                        <div class="stat-change">Lunch rush</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number">+18%</div>
+                        <div class="stat-label">Growth Rate</div>
+                        <div class="stat-change positive">Monthly</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="analytics-charts">
+                <div class="chart-container">
+                    <h3>Popular Items</h3>
+                    <div class="popular-items">
+                        <div class="item-stat">
+                            <span class="item-name">Chips & Chicken</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 89%"></div>
+                            </div>
+                            <span class="item-count">89 orders</span>
+                        </div>
+                        <div class="item-stat">
+                            <span class="item-name">Chicken Rice</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 76%"></div>
+                            </div>
+                            <span class="item-count">76 orders</span>
+                        </div>
+                        <div class="item-stat">
+                            <span class="item-name">Beef</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="item-count">65 orders</span>
+                        </div>
+                        <div class="item-stat">
+                            <span class="item-name">Daily Special</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 54%"></div>
+                            </div>
+                            <span class="item-count">54 orders</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Peak Hours Analysis</h3>
+                    <div class="peak-hours">
+                        <div class="hour-slot">
+                            <span class="hour">8-10 AM</span>
+                            <div class="hour-bar">
+                                <div class="hour-fill" style="height: 30%"></div>
+                            </div>
+                        </div>
+                        <div class="hour-slot">
+                            <span class="hour">11 AM-1 PM</span>
+                            <div class="hour-bar">
+                                <div class="hour-fill peak" style="height: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="hour-slot">
+                            <span class="hour">2-4 PM</span>
+                            <div class="hour-bar">
+                                <div class="hour-fill" style="height: 60%"></div>
+                            </div>
+                        </div>
+                        <div class="hour-slot">
+                            <span class="hour">5-7 PM</span>
+                            <div class="hour-bar">
+                                <div class="hour-fill" style="height: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="forecast-section">
+                <h3>Sales Forecast</h3>
+                <div class="forecast-cards">
+                    <div class="forecast-card">
+                        <div class="forecast-day">Tomorrow</div>
+                        <div class="forecast-estimate">~45 orders</div>
+                        <div class="forecast-recommendation">Prepare extra chicken</div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="forecast-day">Weekend</div>
+                        <div class="forecast-estimate">~180 orders</div>
+                        <div class="forecast-recommendation">Stock up on rice</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Page -->
+    <div id="adminPage" class="page">
+        <div class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="showPage('welcomePage')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <div class="logo-text">Admin Panel</div>
+            </div>
+        </div>
+        <div class="admin-content">
+            <div id="adminLogin" class="admin-login">
+                <div class="login-card">
+                    <h3>Admin Access</h3>
+                    <input type="password" id="adminPassword" class="form-input" placeholder="Enter admin password">
+                    <button class="admin-login-btn" onclick="loginToAdmin()">Login</button>
+                </div>
+            </div>
+            <div id="adminPanel" class="admin-panel" style="display: none;">
+                <div class="admin-header">
+                    <h2>Menu Management</h2>
+                    <button class="add-category-btn" onclick="addNewCategory()">+ Add Category</button>
+                </div>
+                <div id="menuEditor"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Referral Program Modal -->
+    <div id="referralModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Refer & Earn Program</h3>
+                <button class="close-btn" onclick="closeReferralModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="referral-content">
+                <div class="referral-info">
+                    <div class="referral-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4>Give 10% Off, Get 10% Off!</h4>
+                    <p>Share your referral code with friends and you both get 10% off your next order.</p>
+                </div>
+                <div class="referral-code-section">
+                    <label>Your Referral Code</label>
+                    <div class="referral-code-box">
+                        <input type="text" id="referralCode" value="ZIA10" readonly>
+                        <button class="copy-btn" onclick="copyReferralCode()">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="referral-share">
+                    <label>Share Via</label>
+                    <div class="share-buttons">
+                        <button class="share-btn whatsapp" onclick="shareReferralWhatsApp()">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="share-btn facebook" onclick="shareReferralFacebook()">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button class="share-btn sms" onclick="shareReferralSMS()">
+                            <i class="fas fa-sms"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="referral-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Friends Referred</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">MK 4,500</span>
+                        <span class="stat-label">Total Savings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Search Modal -->
+    <div id="voiceSearchModal" class="modal">
+        <div class="modal-content voice-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Voice Search</h3>
+                <button class="close-btn" onclick="closeVoiceSearchModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="voice-content">
+                <div class="voice-animation" id="voiceAnimation">
+                    <div class="voice-wave"></div>
+                    <div class="voice-wave"></div>
+                    <div class="voice-wave"></div>
+                    <div class="voice-wave"></div>
+                    <div class="voice-wave"></div>
+                </div>
+                <div class="voice-text">
+                    <p id="voiceStatusText">Say "Hey Zia, find chicken dishes"</p>
+                    <div class="voice-result" id="voiceResult"></div>
+                </div>
+                <div class="voice-controls">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceListening()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Push Notification Modal -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Push Notifications</h3>
+                <button class="close-btn" onclick="closeNotificationModal()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="notification-content">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h4>Stay Updated!</h4>
+                <p>Get notified about new dishes, special offers, and order updates.</p>
+                <div class="notification-options">
+                    <label class="notification-option">
+                        <input type="checkbox" id="newDishes" checked>
+                        <span>New Dishes</span>
+                    </label>
+                    <label class="notification-option">
+                        <input type="checkbox" id="specialOffers" checked>
+                        <span>Special Offers</span>
+                    </label>
+                    <label class="notification-option">
+                        <input type="checkbox" id="orderUpdates" checked>
+                        <span>Order Updates</span>
+                    </label>
+                </div>
+                <button class="enable-notifications-btn" onclick="enableNotifications()">
+                    <i class="fas fa-bell"></i>
+                    Enable Notifications
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="closeSideMenu()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

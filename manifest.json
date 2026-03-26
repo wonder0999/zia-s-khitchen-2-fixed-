@@ -1,0 +1,52 @@
+{
+  "name": "Zia's Kitchen",
+  "short_name": "Zia's Kitchen",
+  "description": "Delicious food delivered fast from Zia's Kitchen in Lilongwe",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ff6b35",
+  "theme_color": "#ff6b35",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "Profile.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "512x512",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["food", "restaurant", "delivery"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Order Food",
+      "short_name": "Order",
+      "description": "Quickly order your favorite food",
+      "url": "/?action=order",
+      "icons": [{ "src": "Profile.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "View Menu",
+      "short_name": "Menu",
+      "description": "Browse our delicious menu",
+      "url": "/?action=menu",
+      "icons": [{ "src": "Profile.png", "sizes": "96x96" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "Profile.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Zia's Kitchen main menu"
+    }
+  ]
+}
