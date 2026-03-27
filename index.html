@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zia's Kitchen – Lilongwe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="app">
+
+  <!-- PAGE 1 – WELCOME -->
+  <div class="page active" id="pg-welcome">
+    <nav class="w-nav">
+      <div class="w-brand">
+        <div class="w-brand-name">Zia's <em>Kitchen</em></div>
+        <div class="w-brand-sub">Lilongwe · Area 25</div>
+      </div>
+      <button class="w-info-btn" onclick="openModal('modal-info')"><i class="fas fa-bars"></i></button>
+    </nav>
+    <div class="w-hero">
+      <div class="w-photo-wrap">
+        <div class="w-photo-halo"></div>
+        <div class="w-photo-ring"></div>
+        <img src="Profile.png" alt="Chef Zia" class="w-photo"/>
+      </div>
+    </div>
+    <div class="w-bottom">
+      <div class="w-eyebrow">Home-Cooked Excellence</div>
+      <h1 class="w-headline">Delicious Meals,<br/><em>Made with Love</em></h1>
+      <p class="w-tagline">Breakfast · Lunch · Dinner · Platters · Events</p>
+      <div class="w-cta-row">
+        <button class="w-cta-primary" onclick="goTo('pg-menu')">
+          Explore Menu <span class="cta-icon"><i class="fas fa-arrow-right"></i></span>
+        </button>
+        <button class="w-cta-ghost" onclick="openModal('modal-info')"><i class="fas fa-star"></i> About Us & Hours</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 – MENU -->
+  <div class="page" id="pg-menu">
+    <div class="page-header">
+      <button class="back-btn" onclick="goBack()">←</button>
+      <div class="page-header-title">Zia's Kitchen</div>
+      <button class="cart-pill" onclick="goTo('pg-cart')">
+        <span class="cart-pill-icon"><i class="fas fa-shopping-cart"></i></span>
+        <span id="cart-pill-label">Cart</span>
+        <span class="cart-pill-count" id="cart-pill-count">0</span>
+      </button>
+    </div>
+    <div class="menu-hero">
+      <div class="menu-hero-badge">✦ Fresh & Made to Order</div>
+      <div class="menu-hero-text">
+        <h2>What would you like today?</h2>
+        <p>Daily meals · Platters · Catering for all occasions</p>
+      </div>
+    </div>
+    <div class="quick-actions">
+      <button class="qa-btn qa-special" onclick="goTo('pg-specials')"><i class="fas fa-star"></i> Today's Specials</button>
+      <button class="qa-btn qa-reserve" onclick="openModal('modal-reservation')"><i class="fas fa-calendar"></i> Reserve a Spot</button>
+      <button class="qa-btn qa-other"   onclick="openModal('modal-other')"><i class="fas fa-utensils"></i> Other Plates</button>
+      <button class="qa-btn qa-platter" onclick="openModal('modal-platter')"><i class="fas fa-gift"></i> Custom Platters</button>
+    </div>
+    <div class="cat-strip">
+      <button class="cat-btn on" onclick="filterMenu('all',this)">All Items</button>
+      <button class="cat-btn"   onclick="filterMenu('daily',this)">Daily Meals</button>
+      <button class="cat-btn"   onclick="filterMenu('platters',this)">Platters</button>
+    </div>
+    <div class="food-grid" id="food-grid"></div>
+    <div class="pad-bottom"></div>
+  </div>
+
+  <!-- PAGE 3 – SPECIALS -->
+  <div class="page" id="pg-specials">
+    <div class="specials-header">
+      <button class="back-btn" onclick="goBack()">←</button>
+      <div class="specials-header-title">Today's Specials</div>
+      <span class="badge-limited">Limited</span>
+    </div>
+    <div class="specials-banner">
+      <div class="specials-banner-emoji"><i class="fas fa-fire"></i></div>
+      <div class="specials-banner-body">
+        <h3>Hot Deals — Today Only</h3>
+        <p>Freshly prepared · Order before they run out</p>
+      </div>
+    </div>
+    <div class="specials-list" id="specials-list"></div>
+    <div class="pad-bottom"></div>
+  </div>
+
+  <!-- PAGE 4 – CART -->
+  <div class="page" id="pg-cart">
+    <div class="page-header">
+      <button class="back-btn" onclick="goBack()">←</button>
+      <div class="page-header-title">Your Order</div>
+    </div>
+    <div class="cart-body">
+      <div class="cart-empty-state" id="cart-empty">
+        <div class="cart-empty-emoji"><i class="fas fa-shopping-cart"></i></div>
+        <h3>Your cart is empty</h3>
+        <p>Browse the menu and add some meals!</p>
+      </div>
+      <div class="cart-items-wrap hidden" id="cart-items"></div>
+    </div>
+    <div class="cart-foot hidden" id="cart-foot">
+      <div class="cart-summary">
+        <div class="cart-row cart-total-row">
+          <span class="cart-row-label">Total</span>
+          <span class="cart-row-val" id="cart-total-val">MK 0</span>
+        </div>
+      </div>
+      <div class="cart-order-row">
+        <button class="voice-order-btn" onclick="startVoiceOrder()">
+          <i class="fas fa-microphone"></i>
+          <span>Voice Order</span>
+        </button>
+        <a href="#" class="btn-whatsapp" id="cart-wa-btn" target="_blank"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+        <a href="tel:0991418099" class="btn-phone"><i class="fas fa-phone"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
+
+  <!-- MODAL – ABOUT -->
+  <div class="modal" id="modal-info">
+    <div class="modal-drag"></div>
+    <button class="modal-x" onclick="closeModal('modal-info')">✕</button>
+    <div class="info-top">
+      <img src="Profile.png" alt="Zia" class="info-avatar"/>
+      <div class="info-brand">
+        <h3>Zia's Kitchen</h3>
+        <p>Home-cooked meals · Lilongwe, Malawi</p>
+      </div>
+    </div>
+    <div class="modal-pad">
+      <div class="info-sec">
+        <div class="info-sec-label">About Us</div>
+        <p>We make delicious home-cooked meals — breakfast, lunch, dinner and customised food platters. We also cater for birthdays, anniversaries and parties.</p>
+      </div>
+      <div class="info-sec">
+        <div class="info-sec-label">What We Offer</div>
+        <ul>
+          <li><span class="bullet"><i class="fas fa-star"></i></span> Daily meals from <strong>MK 10,000</strong></li>
+          <li><span class="bullet"><i class="fas fa-star"></i></span> We work with any budget!</li>
+          <li><span class="bullet"><i class="fas fa-star"></i></span> Customised platters from <strong>MK 40,000</strong></li>
+          <li><span class="bullet"><i class="fas fa-star"></i></span> Event catering for all occasions</li>
+        </ul>
+      </div>
+            <div class="info-sec" style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+        <div>
+          <div class="info-sec-label">Hours</div>
+          <p><i class="fas fa-clock"></i> Mon – Sat</p>
+        </div>
+        <div>
+          <div class="info-sec-label">Location</div>
+          <p><i class="fas fa-map-marker-alt"></i> Area 25, Lilongwe</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-cta">
+      <a href="https://wa.me/265991418099" target="_blank" class="btn-wa-green"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="tel:0991418099" class="btn-orange"><i class="fas fa-phone"></i> Call Us</a>
+    </div>
+  </div>
+
+  <!-- MODAL – FOOD DETAIL -->
+  <div class="modal" id="modal-detail">
+    <button class="modal-x" onclick="closeModal('modal-detail')">✕</button>
+    <img src="" alt="" class="detail-hero" id="detail-img" onclick="openZoomGallery(detailItem)"/>
+    <div class="detail-zoom-hint" onclick="openZoomGallery(detailItem)">
+      <i class="fas fa-search-plus"></i> Click to zoom
+    </div>
+    <div class="detail-body">
+      <div class="detail-name" id="detail-name"></div>
+      <div class="detail-price" id="detail-price"></div>
+      <div class="detail-rating" id="detail-rating">
+        <div class="stars" id="detail-stars"></div>
+        <span class="rating-text" id="rating-text"></span>
+      </div>
+      <p class="detail-desc" id="detail-desc"></p>
+      <div class="detail-chips" id="detail-chips"></div>
+      
+      <!-- Customer Reviews Section -->
+      <div class="reviews-section">
+        <div class="reviews-header">
+          <h3>Customer Reviews</h3>
+          <button class="add-review-btn" onclick="openReviewModal()">
+            <i class="fas fa-plus"></i> Add Review
+          </button>
+        </div>
+        <div class="reviews-list" id="reviews-list"></div>
+      </div>
+    </div>
+    <div class="detail-foot">
+      <button class="btn-add-detail" id="btn-detail-add" onclick="addFromDetail()"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- MODAL – ADD REVIEW -->
+  <div class="modal" id="modal-review">
+    <button class="modal-x" onclick="closeModal('modal-review')">✕</button>
+    <div class="modal-heading"><i class="fas fa-star"></i> Add Your Review</div>
+    <div class="modal-pad">
+      <form id="review-form" onsubmit="submitReview(event)">
+        <div class="fgroup">
+          <label class="flabel">Your Name</label>
+          <input type="text" class="finput" id="review-name" required/>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Rating</label>
+          <div class="star-rating" id="star-rating">
+            <i class="fas fa-star" data-rating="1"></i>
+            <i class="fas fa-star" data-rating="2"></i>
+            <i class="fas fa-star" data-rating="3"></i>
+            <i class="fas fa-star" data-rating="4"></i>
+            <i class="fas fa-star" data-rating="5"></i>
+          </div>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Your Review</label>
+          <textarea class="finput" id="review-text" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL – ZOOM GALLERY -->
+  <div class="modal zoom-modal" id="modal-zoom">
+    <button class="modal-x" onclick="closeModal('modal-zoom')">✕</button>
+    <div class="zoom-container">
+      <div class="zoom-main">
+        <img src="" alt="" id="zoom-main-img" class="zoom-main-img"/>
+        <div class="zoom-controls">
+          <button class="zoom-btn" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+          <button class="zoom-btn" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+          <button class="zoom-btn" onclick="resetZoom()"><i class="fas fa-expand"></i></button>
+        </div>
+      </div>
+      <div class="zoom-thumbnails" id="zoom-thumbnails"></div>
+    </div>
+  </div>
+
+  <!-- MODAL – CUSTOM PLATTERS -->
+  <div class="modal" id="modal-platter">
+    <div class="platter-hero">
+      <div class="modal-drag" style="background:rgba(255,255,255,.25)"></div>
+      <button class="modal-x" onclick="closeModal('modal-platter')" style="color:#fff;background:rgba(255,255,255,.15)">✕</button>
+      <h2><i class="fas fa-gift"></i> Customised Food Platters</h2>
+      <p>Made exactly to your taste and occasion</p>
+      <div class="platter-price-badge">Starting from MK 40,000</div>
+    </div>
+    <div class="modal-pad">
+      <form id="platter-form" onsubmit="submitPlatter(event)">
+        <div class="fgroup">
+          <label class="flabel">Your Name</label>
+          <input type="text" class="finput" id="p-name" required/>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Your Location</label>
+          <input type="text" class="finput" id="p-loc" required/>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Tell us about your platter</label>
+          <textarea class="finput" id="p-notes" rows="3"></textarea>
+        </div>
+        <div class="fsuccess" id="p-success"><p><i class="fas fa-check"></i> Tap WhatsApp below to send your order!</p></div>
+        <button type="submit" class="btn-submit">Prepare WhatsApp Message</button>
+      </form>
+      <div class="modal-contact-row">
+        <a href="#" id="p-wa-link" target="_blank" class="btn-wa-green"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="tel:0991418099" class="btn-orange"><i class="fas fa-phone"></i> Call Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL – OTHER PLATES -->
+  <div class="modal" id="modal-other">
+    <div class="modal-drag"></div>
+    <button class="modal-x" onclick="closeModal('modal-other')">✕</button>
+    <div class="modal-heading"><i class="fas fa-utensils"></i> Other Plates</div>
+    <div class="other-grid" id="other-grid"></div>
+    <div style="padding:.5rem 1.1rem 1.75rem;display:flex;gap:.7rem">
+      <a href="https://wa.me/265991418099" target="_blank" class="btn-wa-green" style="flex:1;padding:.8rem;border-radius:50px;display:flex;align-items:center;justify-content:center;gap:.4rem;font-weight:600"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="tel:0991418099" class="btn-orange" style="flex:1;padding:.8rem;border-radius:50px;display:flex;align-items:center;justify-content:center;gap:.4rem;font-weight:600"><i class="fas fa-phone"></i> Call</a>
+    </div>
+  </div>
+
+  <!-- MODAL – RESERVATION -->
+  <div class="modal" id="modal-reservation">
+    <div class="modal-drag"></div>
+    <button class="modal-x" onclick="closeModal('modal-reservation')">✕</button>
+    <div class="modal-heading"><i class="fas fa-calendar"></i> Make a Reservation</div>
+    <div class="modal-pad">
+      <div class="res-note">We confirm via <strong>WhatsApp or call</strong>. Available <strong>Mon–Sat</strong> only.</div>
+      <form id="res-form" onsubmit="submitReservation(event)">
+        <div class="fgroup"><label class="flabel">Full Name</label>
+          <input type="text" class="finput" id="r-name" required/></div>
+        <div class="fgroup"><label class="flabel">Location / Address</label>
+          <input type="text" class="finput" id="r-loc" required/></div>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Date</label>
+            <input type="date" class="finput" id="r-date" required/></div>
+          <div class="fgroup"><label class="flabel">Time</label>
+            <select class="finput" id="r-time" required>
+              <option value="">Select</option>
+              <option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option>
+              <option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option>
+              <option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
+              <option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option>
+            </select></div>
+        </div>
+        <div class="fgroup"><label class="flabel">Special Requests</label>
+          <textarea class="finput" id="r-desc" rows="3"></textarea></div>
+        <div class="fsuccess" id="r-success"><p><i class="fas fa-check"></i> Reservation submitted! We'll confirm shortly.</p></div>
+        <button type="submit" class="btn-submit">Send Reservation</button>
+      </form>
+      <div class="modal-contact-row">
+        <a href="https://wa.me/265991418099" target="_blank" class="btn-wa-green"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="tel:0991418099" class="btn-orange"><i class="fas fa-phone"></i> Call</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast"></div>
+
+  <!-- ZIAH ASSISTANT -->
+  <div id="ziah-assistant" class="ziah-assistant">
+    <div class="ziah-face">
+      <div class="ziah-eyes">
+        <div class="ziah-eye left"></div>
+        <div class="ziah-eye right"></div>
+      </div>
+      <div class="ziah-mouth"></div>
+    </div>
+    <div class="ziah-bubble">
+      <div class="ziah-bubble-content">
+        <div class="ziah-title">Ziah Assistant</div>
+        <div class="ziah-recommendation" id="ziah-recommendation"></div>
+        <div class="ziah-actions">
+          <button class="ziah-btn" onclick="ziahShowNext()">Next Recommendation</button>
+          <button class="ziah-btn close" onclick="ziahHide()">Hide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
