@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Web App to APK
-        uses: darkshredder/web-to-app-action@v1
+        uses: darkshredder/web-to-app-action@main
         with:
           build-folder-path: './' # Looks at your main repository folder
           app-name: "Zia Kitchen App"
