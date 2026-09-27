@@ -1,0 +1,23 @@
+name: Convert Website to APK
+on:
+  push:
+    branches: [ main ] # Builds a fresh APK whenever you update code
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Web App to APK
+        uses: darkshredder/web-to-app-action@v1
+        with:
+          build-folder-path: './' # Looks at your main repository folder
+          app-name: "Zia Kitchen App"
+
+      - name: Upload Finished App
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mobile-APK-Package
+          path: ./apk/
