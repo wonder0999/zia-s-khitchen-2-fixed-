@@ -1,7 +1,7 @@
 name: Convert Website to APK
 on:
   push:
-    branches: [ main ] # Builds a fresh APK whenever you update code
+    branches: [ main ]
 
 jobs:
   build:
@@ -11,13 +11,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Web App to APK
-        uses: darkshredder/web-to-app-action@main
+        uses: marb99/website2apk@v1
         with:
-          build-folder-path: './' # Looks at your main repository folder
           app-name: "Zia Kitchen App"
+          app-version: "1.0.0"
+          package-name: "com.wonder0999.ziakitchen"
+          website-url: "https://github.io"
 
       - name: Upload Finished App
         uses: actions/upload-artifact@v4
         with:
           name: Mobile-APK-Package
-          path: ./apk/
+          path: ./*.apk
